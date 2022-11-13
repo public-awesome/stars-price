@@ -10,15 +10,22 @@ async fn main() {
     let client = CoinGeckoClient::default();
     let today = Utc::now().naive_utc();
     let mut total = 0.0;
+    let mut count = 0;
 
     for i in 1..(days + 1) {
         let date = today.checked_sub_signed(Duration::days(i.into())).unwrap();
         let res = client.coin_history("stargaze", date.date(), true).await;
-        let price = res.unwrap().market_data.current_price.usd.unwrap();
-        println!("{} - {}", date.date(), price);
-        total += price;
+        match res {
+            Ok(res) => {
+                let price = res.market_data.current_price.usd.unwrap();
+                println!("{} - {}", date.date(), price);
+                total += price;
+                count += 1;
+            }
+            Err(e) => println!("{} - Error", e),
+        }
     }
 
-    let avg = total / f64::from(days);
-    println!("{}-day moving average: {:?}", days, avg);
+    let avg = total / f64::from(count);
+    println!("{}-day moving average: {:?}", count, avg);
 }
