@@ -1,13 +1,19 @@
 # CoinGecko STARS moving average
 
+## Install
+
+```sh
+cargo install stars-price
+```
+
 ## 30-day moving average
 
 ```
-cargo run 30
+stars-price 30
 ```
 
 ## 7-day moving average
 
 ```
-cargo run 7
+stars-price 7
 ```
