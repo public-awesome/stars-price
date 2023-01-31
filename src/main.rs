@@ -1,5 +1,5 @@
 use chrono::{Duration, Utc};
-use tokio::time::{sleep};
+use tokio::time::{sleep, Duration as TokioDuration};
 use coingecko::CoinGeckoClient;
 use std::env;
 
@@ -14,7 +14,7 @@ async fn main() {
     let mut count = 0;
 
     for i in 1..(days + 1) {
-        sleep(Duration::from_millis(4000)).await;
+        sleep(TokioDuration::from_millis(4000)).await;
         let date = today.checked_sub_signed(Duration::days(i.into())).unwrap();
         let res = client.coin_history("stargaze", date.date(), true).await;
         match res {
