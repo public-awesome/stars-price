@@ -1,7 +1,9 @@
 [package]
-name    = "stars-price"
-version = "0.2.0"
-edition = "2021"
+name        = "stars-price"
+version     = "0.2.0"
+edition     = "2021"
+license     = "Apache-2.0"
+description = "30-day moving average price of STARS on Coingecko"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
