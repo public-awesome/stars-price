@@ -59,15 +59,6 @@ dependencies = [
 
 [[package]]
 name = "coingecko"
-version = "0.1.0"
-dependencies = [
- "chrono",
- "coingecko 1.0.0",
- "tokio",
-]
-
-[[package]]
-name = "coingecko"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "de2166d2f2b94027a3eddd3abafcfbc2bb4f248506c25731984e204b0bbb3578"
@@ -741,6 +732,15 @@ checksum = "66d72b759436ae32898a2af0a14218dbf55efde3feeb170eb623637db85ee1e0"
 dependencies = [
  "libc",
  "winapi",
+]
+
+[[package]]
+name = "stars-price"
+version = "0.2.0"
+dependencies = [
+ "chrono",
+ "coingecko",
+ "tokio",
 ]
 
 [[package]]

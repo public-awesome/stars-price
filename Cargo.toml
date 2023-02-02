@@ -1,11 +1,11 @@
 [package]
-name = "coingecko"
-version = "0.1.0"
+name    = "stars-price"
+version = "0.2.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-chrono = "0.4.19"
+chrono    = "0.4.19"
 coingecko = "1.0.0"
-tokio = "1.17.0"
+tokio     = "1.17.0"
