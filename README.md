@@ -11,7 +11,11 @@ cargo install stars-price
 ```
 stars-price 30
 ```
+## 30-day moving average with an offset of 5 days
 
+```
+stars-price 30 5
+```
 ## 7-day moving average
 
 ```

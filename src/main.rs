@@ -1,21 +1,25 @@
 use chrono::{Duration, Utc};
-use tokio::time::{sleep, Duration as TokioDuration};
 use coingecko::CoinGeckoClient;
 use std::env;
+use tokio::time::{sleep, Duration as TokioDuration};
 
 #[tokio::main]
 async fn main() {
     let args: Vec<String> = env::args().collect();
-    let days: i32 = args[1].parse().unwrap();
+    let mut days: i64 = args[1].parse().unwrap();
+    let offset: i8 = args
+        .get(2)
+        .map_or(0, |offset_value| offset_value.parse().unwrap_or(0));
 
     let client = CoinGeckoClient::default();
     let today = Utc::now().naive_utc();
     let mut total = 0.0;
-    let mut count = 0;
-
-    for i in 1..(days + 1) {
-        sleep(TokioDuration::from_millis(10000)).await;
-        let date = today.checked_sub_signed(Duration::days(i.into())).unwrap();
+    let mut count: i8 = 0;
+    let mut date = today
+        .checked_sub_signed(Duration::days(offset.into()))
+        .unwrap();
+    while days > 0 {
+        sleep(TokioDuration::from_millis(3000)).await;
         let res = client.coin_history("stargaze", date.date(), true).await;
         match res {
             Ok(res) => {
@@ -23,8 +27,14 @@ async fn main() {
                 println!("{} - {}", date.date(), price);
                 total += price;
                 count += 1;
+                date = today
+                    .checked_sub_signed(Duration::days(count.checked_add(offset).unwrap().into()))
+                    .unwrap();
+                days -= 1;
             }
-            Err(e) => println!("{} - Error", e),
+            Err(e) => {
+                println!("{} - Error", e);
+            }
         }
     }
 
